@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Listeners;
+namespace Candidatozz\Listeners;
 
-use App\Events\ExampleEvent;
+use Candidatozz\Events\ExampleEvent;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 

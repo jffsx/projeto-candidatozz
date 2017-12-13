@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace Candidatozz\Jobs;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;

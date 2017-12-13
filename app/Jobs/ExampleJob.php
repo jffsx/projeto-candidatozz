@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace Candidatozz\Jobs;
 
 class ExampleJob extends Job
 {

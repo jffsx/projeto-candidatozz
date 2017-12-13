@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events;
+namespace Candidatozz\Events;
 
 class ExampleEvent extends Event
 {

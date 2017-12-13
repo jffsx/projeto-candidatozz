@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Providers;
+namespace Candidatozz\Providers;
 
-use App\User;
+use Candidatozz\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 

@@ -1,7 +1,7 @@
 {
-    "name": "laravel/lumen",
-    "description": "The Laravel Lumen Framework.",
-    "keywords": ["framework", "laravel", "lumen"],
+    "name": "eduzz/candidatozz",
+    "description": "Projeto de cadidatos da eduzz.",
+    "keywords": ["eduzz", "laravel", "lumen"],
     "license": "MIT",
     "type": "project",
     "require": {
@@ -16,7 +16,7 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/"
+            "Candidatozz\\": "app/"
         }
     },
     "autoload-dev": {
