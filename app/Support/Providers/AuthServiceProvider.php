@@ -1,6 +1,6 @@
 <?php
 
-namespace Candidatozz\Providers;
+namespace Candidatozz\Suport\Providers;
 
 use Candidatozz\User;
 use Illuminate\Support\Facades\Gate;
