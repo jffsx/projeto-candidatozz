@@ -82,8 +82,6 @@ $app->singleton(
 // $app->register(Candidatozz\Providers\AuthServiceProvider::class);
 // $app->register(Candidatozz\Providers\EventServiceProvider::class);
 
-$app->register(Prettus\Repository\Providers\LumenRepositoryServiceProvider::class);
-
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
