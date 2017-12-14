@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Console;
+namespace Candidatozz\Support;
 
 use Illuminate\Console\Scheduling\Schedule;
-use Laravel\Lumen\Console\Kernel as ConsoleKernel;
+use Laravel\Lumen\Console\Kernel;
 
-class Kernel extends ConsoleKernel
+class ConsoleKernel extends Kernel
 {
     /**
      * The Artisan commands provided by your application.

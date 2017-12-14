@@ -25,7 +25,7 @@ $app = new Laravel\Lumen\Application(
 
 // $app->withFacades();
 
-// $app->withEloquent();
+$app->withEloquent();
 
 /*
 |--------------------------------------------------------------------------
@@ -40,12 +40,12 @@ $app = new Laravel\Lumen\Application(
 
 $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
-    App\Exceptions\Handler::class
+    Candidatozz\Support\ExceptionHandler::class
 );
 
 $app->singleton(
     Illuminate\Contracts\Console\Kernel::class,
-    App\Console\Kernel::class
+    Candidatozz\Support\ConsoleKernel::class
 );
 
 /*
@@ -60,11 +60,11 @@ $app->singleton(
 */
 
 // $app->middleware([
-//    App\Http\Middleware\ExampleMiddleware::class
+//    Candidatozz\Http\Middleware\ExampleMiddleware::class
 // ]);
 
 // $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
+//     'auth' => Candidatozz\Http\Middleware\Authenticate::class,
 // ]);
 
 /*
@@ -78,9 +78,11 @@ $app->singleton(
 |
 */
 
-// $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(App\Providers\AuthServiceProvider::class);
-// $app->register(App\Providers\EventServiceProvider::class);
+// $app->register(Candidatozz\Providers\AppServiceProvider::class);
+// $app->register(Candidatozz\Providers\AuthServiceProvider::class);
+// $app->register(Candidatozz\Providers\EventServiceProvider::class);
+
+$app->register(Candidatozz\Domains\Candidates\Providers\DomainServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
@@ -94,9 +96,15 @@ $app->singleton(
 */
 
 $app->router->group([
-    'namespace' => 'App\Http\Controllers',
+    'namespace' => 'Candidatozz\Http\Controllers',
 ], function ($router) {
     require __DIR__.'/../routes/web.php';
+});
+
+$app->router->group([
+    'namespace' => 'Candidatozz\Domains\Candidates\Http\Controllers',
+], function ($router) {
+    require __DIR__.'/../app/Domains/Candidates/Http/routes.php';
 });
 
 return $app;
