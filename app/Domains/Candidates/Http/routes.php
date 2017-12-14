@@ -11,16 +11,10 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
-});
-
-$router->group([
-    'prefix' => 'candidates',
-    'namespace' => 'Domains\Http\Controllers'], function () use ($router) {
+$router->group(['prefix' => 'candidates'], function () use ($router) {
     $router->get('/', 'CandidateController@index');
     $router->get('{id}', 'CandidateController@show');
     $router->post('/', 'CandidateController@store');
     $router->put('{id}', 'CandidateController@update');
-    $router->delete('{id}', 'CandidateController@delete');
+    $router->delete('{id}', 'CandidateController@destroy');
 });
