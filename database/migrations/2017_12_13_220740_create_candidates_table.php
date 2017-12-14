@@ -19,11 +19,10 @@ class CreateCandidatesTable extends Migration
             $table->string('last_name');
             $table->string('email')->unique();
             $table->date('birth_date')->nullable();
-            $table->string('gender')->nullable();
             $table->enum('gender', ['male', 'female']);
             $table->string('cell_phone')->nullable();
-            $table->string('curriculum');
-            $table->timestamps();            
+            $table->string('curriculum_vitae');
+            $table->timestamps();
             $table->softDeletes();
         });
     }

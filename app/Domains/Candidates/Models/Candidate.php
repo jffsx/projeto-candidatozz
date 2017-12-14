@@ -5,12 +5,7 @@ namespace Candidatozz\Domains\Candidates\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-/**
- * Class File
- *
- * @package Candidatozz\Domains\Candidates\Models
- */
-class File extends Model
+class Candidate extends Model
 {
     use SoftDeletes;
 
@@ -19,8 +14,10 @@ class File extends Model
      *
      * @var array
      */
-    protected $fillable =  ['first_name', 'last_name', 'email', 'gender', 'cell_phone', 'curriculum'];
-    
+    protected $fillable =  [
+            'first_name', 'last_name', 'email', 'gender', 'cell_phone', 'curriculum_vitae'
+    ];
+
     /**
      * The attributes dates
      *

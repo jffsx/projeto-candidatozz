@@ -25,7 +25,7 @@ $app = new Laravel\Lumen\Application(
 
 // $app->withFacades();
 
-// $app->withEloquent();
+$app->withEloquent();
 
 /*
 |--------------------------------------------------------------------------
@@ -82,6 +82,8 @@ $app->singleton(
 // $app->register(Candidatozz\Providers\AuthServiceProvider::class);
 // $app->register(Candidatozz\Providers\EventServiceProvider::class);
 
+$app->register(Candidatozz\Domains\Candidates\Providers\DomainServiceProvider::class);
+
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
@@ -97,6 +99,12 @@ $app->router->group([
     'namespace' => 'Candidatozz\Http\Controllers',
 ], function ($router) {
     require __DIR__.'/../routes/web.php';
+});
+
+$app->router->group([
+    'namespace' => 'Candidatozz\Domains\Candidates\Http\Controllers',
+], function ($router) {
+    require __DIR__.'/../app/Domains/Candidates/Http/routes.php';
 });
 
 return $app;
