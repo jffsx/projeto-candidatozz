@@ -2,9 +2,11 @@
 
 namespace Candidatozz\Domains\Candidates\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Candidatozz\Support\Http\Controllers\Controller;
+use Candidatozz\Support\Database\Repository\ModelNotFoundException;
 use Candidatozz\Domains\Candidates\Contracts\CandidateServiceContract;
 
 class CandidateController extends Controller
@@ -30,7 +32,6 @@ class CandidateController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param BannerServiceInterface $bannerService
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -66,7 +67,7 @@ class CandidateController extends Controller
 
         } catch (ValidationException $e) {
             return $this->response()->withUnprocessableEntity($e->errors());
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $this->response()->withError('Ocorreu um erro ao criar o candidato');
         }
     }
@@ -80,8 +81,12 @@ class CandidateController extends Controller
     public function show($id)
     {
         try {
+
             return $this->candidateService->find($id);
-        } catch (\Exception $e) {
+
+        } catch (ModelNotFoundException $e) {
+            return $this->response()->withError($e->getMessage());
+        } catch (Exception $e) {
             return $this->response()->withError('Ocorreu um erro ao buscar o candidato');
         }
     }
@@ -90,6 +95,7 @@ class CandidateController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -113,7 +119,9 @@ class CandidateController extends Controller
 
         } catch (ValidationException $e) {
             return $this->response()->withUnprocessableEntity($e->errors());
-        } catch (\Exception $e) {
+        } catch (ModelNotFoundException $e) {
+            return $this->response()->withError($e->getMessage());
+        } catch (Exception $e) {
             return $this->response()->withError('Ocorreu um erro ao atualizar o candidato');
         }
     }
@@ -127,8 +135,12 @@ class CandidateController extends Controller
     public function destroy($id)
     {
         try {
+
             $candidate = $this->candidateService->delete($id);
             return $this->response()->withSuccess('Candidato deletado com sucesso');
+
+        } catch (ModelNotFoundException $e) {
+            return $this->response()->withError($e->getMessage());
         } catch (Exception $e) {
             return $this->response()->withError('Ocorreu um erro ao deletar o candidato');
         }

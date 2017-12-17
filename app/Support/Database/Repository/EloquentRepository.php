@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 abstract class EloquentRepository implements EloquentRepositoryContract
 {
     /**
-     * App Laravel container
+     * App container
      *
      * @var \Illuminate\Container\Container
      */
@@ -89,11 +89,17 @@ abstract class EloquentRepository implements EloquentRepositoryContract
      * Get by id
      *
      * @param  int $id
+     * @throws ModelNotFoundException
      * @return mixed
      */
     public function find($id, $columns = ['*'])
     {
-        $model = $this->model->findOrFail($id, $columns);
+        $model = $this->model->find($id, $columns);
+
+        if (!$model instanceof Model) {
+            throw new ModelNotFoundException("Não foi possível encontrar o recurso desejado");
+        }
+
         $this->resetModel();
 
         return $model;
@@ -119,11 +125,17 @@ abstract class EloquentRepository implements EloquentRepositoryContract
      *
      * @param array $attributes
      * @param int $id
+     * @throws ModelNotFoundException
      * @return mixed
      */
     public function update(array $attributes, $id)
     {
-        $model = $this->model->findOrFail($id);
+        $model = $this->model->find($id);
+
+        if (!$model instanceof Model) {
+            throw new ModelNotFoundException("Não foi possível encontrar o recurso desejado");
+        }
+
         $model->fill($attributes);
         $model->save();
         $this->resetModel();
@@ -135,12 +147,19 @@ abstract class EloquentRepository implements EloquentRepositoryContract
      * Delete resource
      *
      * @param int $id
+     * @throws ModelNotFoundException
      * @return bool
      */
     public function delete($id)
     {
         $model = $this->find($id);
+
+        if (!$model instanceof Model) {
+            throw new ModelNotFoundException("Não foi possível encontrar o recurso desejado");
+        }
+
         $deleted = $model->delete();
+        $this->resetModel();
 
         return $deleted;
     }

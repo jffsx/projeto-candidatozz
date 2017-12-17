@@ -2,12 +2,14 @@
 
 namespace Candidatozz\Support;
 
+use Log;
 use Exception;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Laravel\Lumen\Exceptions\Handler;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Candidatozz\Support\Database\Repository\RepositoryException;
 
 class ExceptionHandler extends Handler
 {
@@ -45,6 +47,10 @@ class ExceptionHandler extends Handler
      */
     public function render($request, Exception $e)
     {
+        if ($e instanceof RepositoryException) {
+            Log::error($e->getMessage());
+        }
+
         return parent::render($request, $e);
     }
 }
