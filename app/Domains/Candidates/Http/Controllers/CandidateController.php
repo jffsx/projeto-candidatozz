@@ -58,15 +58,16 @@ class CandidateController extends Controller
                 'email.required' => 'E-mail é obrigatório.',
                 'email.email' => 'E-mail inválido.',
                 'email.unique' => 'E-mail já cadastrado.',
+                'gender.required' => 'Sexo é obrigatório',
             ]);
 
             $candidate = $this->candidateService->create($request->all());
-            return response()->json(['message' => 'Candidato criado com sucesso.'], 200);
+            return $this->response()->withSuccess('Candidato criado com sucesso');
 
         } catch (ValidationException $e) {
-            return response()->json($e->errors(), 422);
+            return $this->response()->withUnprocessableEntity($e->errors());
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Ocorreu um erro ao criar o candidato.'], 500);
+            return $this->response()->withError('Ocorreu um erro ao criar o candidato');
         }
     }
 
@@ -81,7 +82,7 @@ class CandidateController extends Controller
         try {
             return $this->candidateService->find($id);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Ocorreu um erro ao buscar o candidato.'], 500);
+            return $this->response()->withError('Ocorreu um erro ao buscar o candidato');
         }
     }
 
@@ -104,15 +105,16 @@ class CandidateController extends Controller
                 'last_name.required' => 'Sobrenome obrigatório.',
                 'email.required' => 'E-mail é obrigatório.',
                 'email.email' => 'E-mail inválido.',
+                'gender.required' => 'Sexo é obrigatório',
             ]);
 
             $candidate = $this->candidateService->update($request->all(), $id);
-            return response()->json(['message' => 'Candidato atualizado com sucesso.'], 200);
+            return $this->response()->withSuccess('Candidato atualizado com sucesso');
 
         } catch (ValidationException $e) {
-            return response()->json($e->errors(), 422);
+            return $this->response()->withUnprocessableEntity($e->errors());
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Ocorreu um erro ao atualizar o candidato.'], 500);
+            return $this->response()->withError('Ocorreu um erro ao atualizar o candidato');
         }
     }
 
@@ -126,9 +128,9 @@ class CandidateController extends Controller
     {
         try {
             $candidate = $this->candidateService->delete($id);
-            return response()->json(['message' => 'Candidato deletado com sucesso.'], 200);
+            return $this->response()->withSuccess('Candidato deletado com sucesso');
         } catch (Exception $e) {
-            return response()->json(['message' => 'Ocorreu um erro ao deletar o candidato.'], 500);
+            return $this->response()->withError('Ocorreu um erro ao deletar o candidato');
         }
     }
 }
