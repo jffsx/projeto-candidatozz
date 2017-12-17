@@ -112,7 +112,7 @@ class CandidateController extends Controller
         } catch (ValidationException $e) {
             return response()->json($e->errors(), 422);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Ocorreu um erro ao atualizar o candidato.' . $e->getMessage()], 500);
+            return response()->json(['message' => 'Ocorreu um erro ao atualizar o candidato.'], 500);
         }
     }
 

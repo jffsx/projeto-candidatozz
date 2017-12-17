@@ -59,9 +59,9 @@ $app->singleton(
 |
 */
 
-// $app->middleware([
-//    Candidatozz\Http\Middleware\ExampleMiddleware::class
-// ]);
+$app->middleware([
+   Nord\Lumen\Cors\CorsMiddleware::class
+]);
 
 // $app->routeMiddleware([
 //     'auth' => Candidatozz\Http\Middleware\Authenticate::class,
@@ -83,6 +83,7 @@ $app->singleton(
 // $app->register(Candidatozz\Providers\EventServiceProvider::class);
 
 $app->register(Candidatozz\Domains\Candidates\Providers\DomainServiceProvider::class);
+$app->register(Nord\Lumen\Cors\CorsServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
