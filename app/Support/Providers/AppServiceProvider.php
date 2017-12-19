@@ -1,8 +1,9 @@
 <?php
 
-namespace Candidatozz\Providers;
+namespace Candidatozz\Support\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Dusterio\LumenPassport\LumenPassport;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,6 +14,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        LumenPassport::routes($this->app, ['prefix' => 'api/v1/oauth']);
     }
 }

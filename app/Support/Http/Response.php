@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response as HttpStatus;
 /**
  * class Response
  *
- * @package Pag\Core\Support
+ * @package Candidatozz\Support\Http
  */
 class Response
 {
@@ -29,6 +29,7 @@ class Response
     /**
      * Create a new class instance.
      *
+     * @param Illuminate\Http\Response $response
      */
     public function __construct(HttpResponse $response)
     {
