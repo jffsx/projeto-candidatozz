@@ -23,7 +23,7 @@ $app = new Laravel\Lumen\Application(
     realpath(__DIR__.'/../')
 );
 
-// $app->withFacades();
+$app->withFacades();
 
 $app->withEloquent();
 
@@ -59,13 +59,13 @@ $app->singleton(
 |
 */
 
-// $app->middleware([
-//    Candidatozz\Http\Middleware\ExampleMiddleware::class
-// ]);
+$app->middleware([
+   Nord\Lumen\Cors\CorsMiddleware::class
+]);
 
-// $app->routeMiddleware([
-//     'auth' => Candidatozz\Http\Middleware\Authenticate::class,
-// ]);
+$app->routeMiddleware([
+    'auth' => Candidatozz\Support\Http\Middleware\Authenticate::class,
+]);
 
 /*
 |--------------------------------------------------------------------------
@@ -82,7 +82,14 @@ $app->singleton(
 // $app->register(Candidatozz\Providers\AuthServiceProvider::class);
 // $app->register(Candidatozz\Providers\EventServiceProvider::class);
 
+$app->register(Candidatozz\Support\Providers\AppServiceProvider::class);
 $app->register(Candidatozz\Domains\Candidates\Providers\DomainServiceProvider::class);
+$app->register(Candidatozz\Domains\Users\Providers\DomainServiceProvider::class);
+$app->register(Nord\Lumen\Cors\CorsServiceProvider::class);
+$app->register(Laravel\Passport\PassportServiceProvider::class);
+$app->register(Dusterio\LumenPassport\PassportServiceProvider::class);
+
+$app->configure('auth');
 
 /*
 |--------------------------------------------------------------------------
@@ -96,15 +103,19 @@ $app->register(Candidatozz\Domains\Candidates\Providers\DomainServiceProvider::c
 */
 
 $app->router->group([
-    'namespace' => 'Candidatozz\Http\Controllers',
-], function ($router) {
-    require __DIR__.'/../routes/web.php';
-});
-
-$app->router->group([
+    'middleware' => 'auth',
+    'prefix' => 'api/v1',
     'namespace' => 'Candidatozz\Domains\Candidates\Http\Controllers',
 ], function ($router) {
     require __DIR__.'/../app/Domains/Candidates/Http/routes.php';
+});
+
+$app->router->group([
+    'middleware' => 'auth',
+    'prefix' => 'api/v1',
+    'namespace' => 'Candidatozz\Domains\Users\Http\Controllers',
+], function ($router) {
+    require __DIR__.'/../app/Domains/Users/Http/routes.php';
 });
 
 return $app;
