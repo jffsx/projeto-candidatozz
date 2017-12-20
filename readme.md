@@ -1,6 +1,6 @@
 # Candidatozz
 
-> Projeto crud candidatozz
+> Projeto candidatozz api
 
 # Instalação do projeto
 
@@ -20,28 +20,45 @@
 
 ## Comandos para instalação
 
-### Instalando as dependências
+No diretório da aplicação digite os comandos abaixo
 
-Entre no diretório da aplicação digite os comandos abaixo:
-
-```
+``` bash
+# instalar as dependencias
 composer install
-```
 
-```
+# configurar o .env "Já configurado com as definições do docker-compose.yml"
 cp .env.example .env
-```
 
-```
-php artisan key:generate
-```
-
-```
+# gerar as tabelas e dados iniciais
 php artisan migrate --seed
+
+# criar as chaves para autenticação
+php artisan passport:install
 ```
 
+# Docker
+
+Subir a aplicação com o Docker
+
+## Requisitos
+
+* Dcoker >= 17
+* docker-compose >= 1
+
+## Comandos para instalação com docker
+
+A aplicação será iniciada na porta :80 caso haja a necessidade de trocar a porta alterar o arquivo docker-compose.yml
+
+``` bash
+# inicia a aplicação com as configurações definidas no docker-compose.yml
+docker-compose up -d
 ```
-php artisan passport:install
+
+Após rodar o *docker-compose up -d* acesse o container e execute os *Comandos para instalação*
+
+``` bash
+# acessar o container
+docker exec -it candidatozz-app /bin/bash
 ```
 
 ## Docs
