@@ -1,0 +1,37 @@
+version: '2'
+
+# Named volumes
+volumes:
+  # MySQL Data
+  candidatozz-mysql-data:
+    driver: local
+
+  # Redis Data
+  candidatozz-redis-data:
+    driver: local
+
+services:
+  # MySQL (5.7)
+  mysql:
+    image: ambientum/mysql:5.7
+    container_name: candidatozz-mysql
+    volumes:
+      - candidatozz-mysql-data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=candidatozz
+      - MYSQL_DATABASE=candidatozz
+      - MYSQL_USER=candidatozz
+      - MYSQL_PASSWORD=candidatozz
+
+  # PHP (with Nginx)
+  app:
+    image: ambientum/php:7.0-nginx
+    container_name: candidatozz-app
+    volumes:
+      - .:/var/www/app
+    ports:
+      - "80:8080"
+    links:
+      - mysql
