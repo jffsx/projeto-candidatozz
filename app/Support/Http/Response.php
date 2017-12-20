@@ -2,6 +2,7 @@
 
 namespace Candidatozz\Support\Http;
 
+use League\Fractal\TransformerAbstract;
 use Illuminate\Http\Response as HttpResponse;
 use Symfony\Component\HttpFoundation\Response as HttpStatus;
 
@@ -20,6 +21,13 @@ class Response
     private $response;
 
     /**
+     * API transformer.
+     *
+     * @var \Candidatozz\Support\Http\Transform
+     */
+    public $transform;
+
+    /**
      * HTTP Status code.
      *
      * @var int
@@ -31,9 +39,10 @@ class Response
      *
      * @param Illuminate\Http\Response $response
      */
-    public function __construct(HttpResponse $response)
+    public function __construct(HttpResponse $response, Transform $transform)
     {
         $this->response = $response;
+        $this->transform = $transform;
     }
 
     /**
@@ -183,5 +192,35 @@ class Response
         $this->statusCode = $statusCode;
 
         return $this;
+    }
+
+    /**
+     * Make a JSON response with the transformed item.
+     *
+     * @param  mixed                    $item
+     * @param  TransformerAbstract|null $transformer
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function item($item, TransformerAbstract $transformer)
+    {
+        return $this->json(
+            $this->transform->item($item, $transformer)
+        );
+    }
+
+    /**
+     * Make a JSON response with the transformed items.
+     *
+     * @param  mixed                    $items
+     * @param  TransformerAbstract|null $transformer
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function collection($items, TransformerAbstract $transformer)
+    {
+        return $this->json(
+            $this->transform->collection($items, $transformer)
+        );
     }
 }

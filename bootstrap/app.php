@@ -48,6 +48,13 @@ $app->singleton(
     Candidatozz\Support\ConsoleKernel::class
 );
 
+$app->singleton(
+    Illuminate\Contracts\Filesystem\Factory::class,
+    function ($app) {
+        return new Illuminate\Filesystem\FilesystemManager($app);
+    }
+);
+
 /*
 |--------------------------------------------------------------------------
 | Register Middleware
@@ -90,6 +97,7 @@ $app->register(Laravel\Passport\PassportServiceProvider::class);
 $app->register(Dusterio\LumenPassport\PassportServiceProvider::class);
 
 $app->configure('auth');
+$app->configure('filesystems');
 
 /*
 |--------------------------------------------------------------------------

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Candidatozz\Support\Http\Controllers\Controller;
 use Candidatozz\Support\Database\Repository\ModelNotFoundException;
 use Candidatozz\Domains\Users\Contracts\UserServiceContract;
+use Candidatozz\Domains\Users\Transformers\UserTransform;
 
 class UserController extends Controller
 {
@@ -35,6 +36,6 @@ class UserController extends Controller
      */
     public function me(Request $request)
     {
-        return $request->user();
+        return $this->response()->item($request->user(), new UserTransform);
     }
 }
