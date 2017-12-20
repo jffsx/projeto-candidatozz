@@ -8,6 +8,7 @@ use Illuminate\Validation\ValidationException;
 use Candidatozz\Support\Http\Controllers\Controller;
 use Candidatozz\Support\Database\Repository\ModelNotFoundException;
 use Candidatozz\Domains\Candidates\Contracts\CandidateServiceContract;
+use Candidatozz\Domains\Candidates\Transformers\CandidateTransform;
 
 class CandidateController extends Controller
 {
@@ -36,7 +37,7 @@ class CandidateController extends Controller
      */
     public function index()
     {
-        return $this->candidateService->paginate();
+        return $this->response()->collection($this->candidateService->paginate(), new CandidateTransform);
     }
 
     /**
@@ -86,7 +87,7 @@ class CandidateController extends Controller
     {
         try {
 
-            return $this->candidateService->find($id);
+            return $this->response()->item($this->candidateService->find($id), new CandidateTransform);
 
         } catch (ModelNotFoundException $e) {
             return $this->response()->withError($e->getMessage());
