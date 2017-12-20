@@ -51,18 +51,22 @@ class CandidateController extends Controller
             $this->validate($request, [
                 'first_name' => 'required',
                 'last_name' => 'required',
-                'email' => 'required|email|unique:candidates',
+                'email' => 'required|email',
                 'gender' => 'required',
+                'curriculum_vitae' => 'required|mimes:doc,docx,pdf',
             ],[
                 'first_name.required' => 'Nome obrigatório.',
                 'last_name.required' => 'Sobrenome obrigatório.',
                 'email.required' => 'E-mail é obrigatório.',
                 'email.email' => 'E-mail inválido.',
-                'email.unique' => 'E-mail já cadastrado.',
-                'gender.required' => 'Sexo é obrigatório',
+                'gender.required' => 'Sexo é obrigatório.',
+                'curriculum_vitae.required' => 'Por favor envie seu currículo.',
+                'curriculum_vitae.mimes' => 'Só é aceito currívulos nos formatos doc, docx ou pdf.',
             ]);
 
             $candidate = $this->candidateService->create($request->all());
+            $this->candidateService->saveCurriculum($request->file('curriculum_vitae'), $candidate->id);
+
             return $this->response()->withSuccess('Candidato criado com sucesso');
 
         } catch (ValidationException $e) {
@@ -106,15 +110,20 @@ class CandidateController extends Controller
                 'last_name' => 'required',
                 'email' => 'required|email',
                 'gender' => 'required',
+                'curriculum_vitae' => 'required|mimes:doc,docx,pdf',
             ],[
                 'first_name.required' => 'Nome obrigatório.',
                 'last_name.required' => 'Sobrenome obrigatório.',
                 'email.required' => 'E-mail é obrigatório.',
                 'email.email' => 'E-mail inválido.',
-                'gender.required' => 'Sexo é obrigatório',
+                'gender.required' => 'Sexo é obrigatório.',
+                'curriculum_vitae.required' => 'Por favor envie seu currículo.',
+                'curriculum_vitae.mimes' => 'Só é aceito currívulos nos formatos doc, docx ou pdf.',
             ]);
 
-            $candidate = $this->candidateService->update($request->all(), $id);
+            $candidate = $this->candidateService->update($request->except('curriculum_vitae'), $id);
+            $this->candidateService->saveCurriculum($request->file('curriculum_vitae'), $id);
+
             return $this->response()->withSuccess('Candidato atualizado com sucesso');
 
         } catch (ValidationException $e) {
@@ -122,7 +131,7 @@ class CandidateController extends Controller
         } catch (ModelNotFoundException $e) {
             return $this->response()->withError($e->getMessage());
         } catch (Exception $e) {
-            return $this->response()->withError('Ocorreu um erro ao atualizar o candidato');
+            return $this->response()->withError('Ocorreu um erro ao atualizar o candidato' . $e->getMessage());
         }
     }
 

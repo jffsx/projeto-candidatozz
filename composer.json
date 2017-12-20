@@ -9,7 +9,8 @@
         "laravel/lumen-framework": "5.5.*",
         "vlucas/phpdotenv": "~2.2",
         "nordsoftware/lumen-cors": "^2.2",
-        "dusterio/lumen-passport": "^0.2.4"
+        "dusterio/lumen-passport": "^0.2.4",
+        "league/flysystem": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
