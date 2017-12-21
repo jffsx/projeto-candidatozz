@@ -111,19 +111,25 @@ class CandidateController extends Controller
                 'last_name' => 'required',
                 'email' => 'required|email',
                 'gender' => 'required',
-                'curriculum_vitae' => 'required|mimes:doc,docx,pdf',
+                'birth_date' => 'required|before:16 years ago',
+                'curriculum_vitae' => 'required_if:has_curriculum_vitae,false|sometimes|mimes:doc,docx,pdf',
             ],[
                 'first_name.required' => 'Nome obrigatório.',
                 'last_name.required' => 'Sobrenome obrigatório.',
                 'email.required' => 'E-mail é obrigatório.',
                 'email.email' => 'E-mail inválido.',
                 'gender.required' => 'Sexo é obrigatório.',
-                'curriculum_vitae.required' => 'Por favor envie seu currículo.',
+                'birth_date.required' => 'Data de nascimento é obrigatório.',
+                'birth_date.before' => 'O candidato precisa ter no mínimo 16 anos.',
+                'curriculum_vitae.required_if' => 'Por favor envie seu currículo.',
                 'curriculum_vitae.mimes' => 'Só é aceito currívulos nos formatos doc, docx ou pdf.',
             ]);
 
             $candidate = $this->candidateService->update($request->except('curriculum_vitae'), $id);
-            $this->candidateService->saveCurriculum($request->file('curriculum_vitae'), $id);
+
+            if ($request->file('curriculum_vitae')) {
+                $this->candidateService->saveCurriculum($request->file('curriculum_vitae'), $id);
+            }
 
             return $this->response()->withSuccess('Candidato atualizado com sucesso');
 

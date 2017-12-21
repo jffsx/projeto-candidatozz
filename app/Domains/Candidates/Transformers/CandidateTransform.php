@@ -25,7 +25,9 @@ class CandidateTransform extends TransformerAbstract
             'gender'            => $candidate->gender,
             'gender_name'       => $candidate->gender == 'male' ? 'Masculino' : 'Feminino',
             'cell_phone'        => $candidate->cell_phone,
-            // 'curriculum_vitae'  => $candidate->curriculum_vitae,
+            'curriculum_vitae_path'  => $candidate->curriculum_vitae,
+            'has_curriculum_vitae'  => $candidate->curriculum_vitae ? true : false,
+            'age'               => $candidate->age,
             'created_at'        => $candidate->created_at->format('d/m/Y H:i'),
             'updated_at'        => $candidate->updated_at->format('d/m/Y H:i')
         ];
