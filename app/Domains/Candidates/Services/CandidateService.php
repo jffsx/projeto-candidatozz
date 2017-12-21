@@ -2,6 +2,7 @@
 
 namespace Candidatozz\Domains\Candidates\Services;
 
+use Illuminate\Http\UploadedFile;
 use Candidatozz\Domains\Candidates\Models\Candidate;
 use Candidatozz\Domains\Candidates\Contracts\CandidateServiceContract;
 use Candidatozz\Domains\Candidates\Contracts\CandidateRepositoryContract;
@@ -88,5 +89,21 @@ class CandidateService implements CandidateServiceContract
     public function delete($id)
     {
         return $this->candidateRepository->delete($id);
+    }
+
+    /**
+     * Save curriculum vitae
+     *
+     * @param UploadedFile $file
+     * @param int $id
+     * @return void
+     */
+    public function saveCurriculum(UploadedFile $file, $id)
+    {
+        $curriculum = [
+            'curriculum_vitae' => $file->store('candidates/curriculum_vitae')
+        ];
+
+        $this->candidateRepository->update($curriculum, $id);
     }
 }

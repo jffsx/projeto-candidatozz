@@ -2,6 +2,8 @@
 
 namespace Candidatozz\Domains\Candidates\Contracts;
 
+use Illuminate\Http\UploadedFile;
+
 interface CandidateServiceContract
 {
     /**
@@ -52,4 +54,13 @@ interface CandidateServiceContract
      * @return mixed
      */
     public function delete($id);
+
+    /**
+     * Save curriculum vitae
+     *
+     * @param UploadedFile $file
+     * @param int $id
+     * @return mixed
+     */
+    public function saveCurriculum(UploadedFile $file, $id);
 }

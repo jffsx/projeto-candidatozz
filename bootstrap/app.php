@@ -27,6 +27,8 @@ $app->withFacades();
 
 $app->withEloquent();
 
+class_alias('Illuminate\Support\Facades\Storage', 'Storage');
+
 /*
 |--------------------------------------------------------------------------
 | Register Container Bindings
@@ -46,6 +48,13 @@ $app->singleton(
 $app->singleton(
     Illuminate\Contracts\Console\Kernel::class,
     Candidatozz\Support\ConsoleKernel::class
+);
+
+$app->singleton(
+    Illuminate\Contracts\Filesystem\Factory::class,
+    function ($app) {
+        return new Illuminate\Filesystem\FilesystemManager($app);
+    }
 );
 
 /*
@@ -82,6 +91,7 @@ $app->routeMiddleware([
 // $app->register(Candidatozz\Providers\AuthServiceProvider::class);
 // $app->register(Candidatozz\Providers\EventServiceProvider::class);
 
+$app->register(Illuminate\Filesystem\FilesystemServiceProvider::class);
 $app->register(Candidatozz\Support\Providers\AppServiceProvider::class);
 $app->register(Candidatozz\Domains\Candidates\Providers\DomainServiceProvider::class);
 $app->register(Candidatozz\Domains\Users\Providers\DomainServiceProvider::class);
@@ -90,6 +100,7 @@ $app->register(Laravel\Passport\PassportServiceProvider::class);
 $app->register(Dusterio\LumenPassport\PassportServiceProvider::class);
 
 $app->configure('auth');
+$app->configure('filesystems');
 
 /*
 |--------------------------------------------------------------------------
