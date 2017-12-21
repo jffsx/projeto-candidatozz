@@ -27,6 +27,8 @@ $app->withFacades();
 
 $app->withEloquent();
 
+class_alias('Illuminate\Support\Facades\Storage', 'Storage');
+
 /*
 |--------------------------------------------------------------------------
 | Register Container Bindings
@@ -89,6 +91,7 @@ $app->routeMiddleware([
 // $app->register(Candidatozz\Providers\AuthServiceProvider::class);
 // $app->register(Candidatozz\Providers\EventServiceProvider::class);
 
+$app->register(Illuminate\Filesystem\FilesystemServiceProvider::class);
 $app->register(Candidatozz\Support\Providers\AppServiceProvider::class);
 $app->register(Candidatozz\Domains\Candidates\Providers\DomainServiceProvider::class);
 $app->register(Candidatozz\Domains\Users\Providers\DomainServiceProvider::class);
