@@ -17,4 +17,5 @@ $router->group(['prefix' => 'candidates'], function () use ($router) {
     $router->post('/', 'CandidateController@store');
     $router->put('{id}', 'CandidateController@update');
     $router->delete('{id}', 'CandidateController@destroy');
+    $router->get('/{id}/curriculum-download', 'CandidateController@curriculumDownload');
 });

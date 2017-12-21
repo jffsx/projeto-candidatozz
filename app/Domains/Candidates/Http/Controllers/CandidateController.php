@@ -2,6 +2,7 @@
 
 namespace Candidatozz\Domains\Candidates\Http\Controllers;
 
+use Storage;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -138,7 +139,7 @@ class CandidateController extends Controller
         } catch (ModelNotFoundException $e) {
             return $this->response()->withError($e->getMessage());
         } catch (Exception $e) {
-            return $this->response()->withError('Ocorreu um erro ao atualizar o candidato' . $e->getMessage());
+            return $this->response()->withError('Ocorreu um erro ao atualizar o candidato');
         }
     }
 
@@ -157,6 +158,26 @@ class CandidateController extends Controller
 
         } catch (ModelNotFoundException $e) {
             return $this->response()->withError($e->getMessage());
+        } catch (Exception $e) {
+            return $this->response()->withError('Ocorreu um erro ao deletar o candidato');
+        }
+    }
+
+    /**
+     * Curriculum download
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function curriculumDownload($id)
+    {
+        try {
+
+            $candidate  = $this->candidateService->find($id);
+            $path       = Storage::path($candidate->curriculum_vitae);
+
+            return response()->download($path);
+
         } catch (Exception $e) {
             return $this->response()->withError('Ocorreu um erro ao deletar o candidato');
         }
