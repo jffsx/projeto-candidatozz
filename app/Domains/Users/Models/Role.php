@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
-    const ROLE_ADMIN        = 'administrador';
-    const ROLE_CANDIDATE    = 'candidato';
+    const ROLE_ADMIN        = 'administrator';
+    const ROLE_CANDIDATE    = 'candidate';
 
     /**
      * The attributes that are mass assignable.
@@ -15,5 +15,5 @@ class Role extends Model
      * @var array
      */
     protected $fillable = ['name', 'code'];
-
+    
 }

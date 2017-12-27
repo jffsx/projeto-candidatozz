@@ -59,4 +59,14 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     {
         return $this->belongsToMany(Role::class, 'users_roles');
     }
+
+    /**
+     * Check user has role
+     *
+     * @return bool
+     */
+    public function hasRole($role)
+    {
+        return $this->roles->contains('code', $role);
+    }
 }

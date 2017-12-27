@@ -4,10 +4,10 @@ namespace Candidatozz\Domains\Users\Transformers;
 
 use League\Fractal\TransformerAbstract;
 use Candidatozz\Domains\Users\Models\User;
-use Candidatozz\Domains\Users\Transformers\RoleTransform;
-use Candidatozz\Domains\Candidates\Transformers\CandidateTransform;
+use Candidatozz\Domains\Users\Transformers\RoleTransformer;
+use Candidatozz\Domains\Candidates\Transformers\CandidateTransformer;
 
-class UserTransform extends TransformerAbstract
+class UserTransformer extends TransformerAbstract
 {
     /**
      * Include use data by default
@@ -53,10 +53,10 @@ class UserTransform extends TransformerAbstract
      * Transform the User entity | Roles
      *
      * @param User $user
-     * @return array
+     * @return arrays
      */
     public function includeRoles(User $user)
     {
-        return $this->collection($user->roles, new RoleTransform());
+        return $this->collection($user->roles, new RoleTransformer());
     }
 }
