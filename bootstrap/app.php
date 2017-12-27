@@ -93,6 +93,7 @@ $app->routeMiddleware([
 
 $app->register(Illuminate\Filesystem\FilesystemServiceProvider::class);
 $app->register(Candidatozz\Support\Providers\AppServiceProvider::class);
+$app->register(Candidatozz\Support\Providers\AuthServiceProvider::class);
 $app->register(Candidatozz\Domains\Candidates\Providers\DomainServiceProvider::class);
 $app->register(Candidatozz\Domains\Users\Providers\DomainServiceProvider::class);
 $app->register(Nord\Lumen\Cors\CorsServiceProvider::class);

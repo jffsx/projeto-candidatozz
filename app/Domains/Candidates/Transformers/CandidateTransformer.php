@@ -5,7 +5,7 @@ namespace Candidatozz\Domains\Candidates\Transformers;
 use League\Fractal\TransformerAbstract;
 use Candidatozz\Domains\Candidates\Models\Candidate;
 
-class CandidateTransform extends TransformerAbstract
+class CandidateTransformer extends TransformerAbstract
 {
     /**
      * Turn this item object into a generic array.
