@@ -69,4 +69,14 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     {
         return $this->roles->contains('code', $role);
     }
+
+    /**
+     * Check user has role
+     *
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return $this->roles->contains('code', Role::ROLE_ADMIN);
+    }
 }

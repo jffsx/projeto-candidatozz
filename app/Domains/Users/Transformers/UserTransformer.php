@@ -24,11 +24,13 @@ class UserTransformer extends TransformerAbstract
     {
         return [
             'id'                => $user->id,
+            'full_name'         => $user->first_name . ' ' . $user->last_name,
             'first_name'        => $user->first_name,
             'last_name'         => $user->last_name,
             'email'             => $user->email,
             'active'            => $user->active,
             'active_name'       => $user->active ? 'Ativo' : 'Inativo',
+            'is_admin'          => $user->isAdmin(),
             'created_at'        => $user->created_at->format('d/m/Y H:i'),
             'updated_at'        => $user->updated_at->format('d/m/Y H:i')
         ];
