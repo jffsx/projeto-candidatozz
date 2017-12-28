@@ -11,7 +11,9 @@
         "nordsoftware/lumen-cors": "^2.2",
         "dusterio/lumen-passport": "^0.2.4",
         "league/flysystem": "^1.0",
-        "league/fractal": "^0.17.0"
+        "league/fractal": "^0.17.0",
+        "illuminate/notifications": "^5.5",
+        "illuminate/mail": "^5.5"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

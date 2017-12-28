@@ -5,6 +5,7 @@ namespace Candidatozz\Domains\Users\Models;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Auth\Authenticatable;
 use Laravel\Lumen\Auth\Authorizable;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
@@ -13,7 +14,7 @@ use Candidatozz\Domains\Candidates\Models\Candidate;
 
 class User extends Model implements AuthenticatableContract, AuthorizableContract
 {
-    use HasApiTokens, Authenticatable, Authorizable, SoftDeletes;
+    use HasApiTokens, Authenticatable, Authorizable, SoftDeletes, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -21,7 +22,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'active'
+        'first_name', 'last_name', 'email', 'active', 'password'
     ];
 
     /**

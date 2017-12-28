@@ -23,11 +23,12 @@ $app = new Laravel\Lumen\Application(
     realpath(__DIR__.'/../')
 );
 
-$app->withFacades();
+$app->withFacades(true, [
+    'Illuminate\Support\Facades\Notification' => 'Notification',
+    'Illuminate\Support\Facades\Storage' => 'Storage',
+]);
 
 $app->withEloquent();
-
-class_alias('Illuminate\Support\Facades\Storage', 'Storage');
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +57,8 @@ $app->singleton(
         return new Illuminate\Filesystem\FilesystemManager($app);
     }
 );
+
+$app->alias('mailer', Illuminate\Contracts\Mail\Mailer::class);
 
 /*
 |--------------------------------------------------------------------------
@@ -87,11 +90,9 @@ $app->routeMiddleware([
 |
 */
 
-// $app->register(Candidatozz\Providers\AppServiceProvider::class);
-// $app->register(Candidatozz\Providers\AuthServiceProvider::class);
-// $app->register(Candidatozz\Providers\EventServiceProvider::class);
-
 $app->register(Illuminate\Filesystem\FilesystemServiceProvider::class);
+$app->register(Illuminate\Notifications\NotificationServiceProvider::class);
+$app->register(Illuminate\Mail\MailServiceProvider::class);
 $app->register(Candidatozz\Support\Providers\AppServiceProvider::class);
 $app->register(Candidatozz\Support\Providers\AuthServiceProvider::class);
 $app->register(Candidatozz\Domains\Candidates\Providers\DomainServiceProvider::class);
@@ -101,7 +102,9 @@ $app->register(Laravel\Passport\PassportServiceProvider::class);
 $app->register(Dusterio\LumenPassport\PassportServiceProvider::class);
 
 $app->configure('auth');
+$app->configure('cors');
 $app->configure('filesystems');
+$app->configure('mail');
 
 /*
 |--------------------------------------------------------------------------

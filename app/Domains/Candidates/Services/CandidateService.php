@@ -2,10 +2,12 @@
 
 namespace Candidatozz\Domains\Candidates\Services;
 
+use DB;
 use Illuminate\Http\UploadedFile;
 use Candidatozz\Domains\Candidates\Models\Candidate;
 use Candidatozz\Domains\Candidates\Contracts\CandidateServiceContract;
 use Candidatozz\Domains\Candidates\Contracts\CandidateRepositoryContract;
+use Candidatozz\Domains\Candidates\Events\CandidateCreated;
 
 class CandidateService implements CandidateServiceContract
 {
@@ -65,7 +67,14 @@ class CandidateService implements CandidateServiceContract
      */
     public function create(array $attributes)
     {
-        return $this->candidateRepository->create($attributes);
+        $candidate = null;
+        
+        DB::transaction(function () use ($attributes) {
+            $candidate = $this->candidateRepository->create($attributes);
+            event(new CandidateCreated($candidate));
+        });
+
+        return $candidate;
     }
 
     /**

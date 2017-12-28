@@ -24,5 +24,6 @@ class DomainServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(BindServiceProvider::class);
+        $this->app->register(EventServiceProvider::class);
     }
 }
